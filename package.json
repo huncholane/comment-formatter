@@ -14,8 +14,15 @@
   "contributes": {
     "commands": [
       {
-        "command": "comment-aligner.helloWorld",
-        "title": "Hello World"
+        "command": "comment-aligner.format",
+        "title": "Format Comments"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "comment-aligner.format",
+        "key": "alt+a alt+c",
+        "when": "editorTextFocus"
       }
     ]
   },
