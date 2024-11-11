@@ -1,6 +1,10 @@
 {
   "name": "comment-aligner",
   "displayName": "comment-aligner",
+  "repository": {
+    "type": "git",
+    "url": "https://gihub.com/huncholane/comment-aligner"
+  },
   "description": "",
   "version": "0.0.1",
   "engines": {
