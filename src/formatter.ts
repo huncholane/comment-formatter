@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { getCommentDelimiter } from "./utils";
+import { getCommentDelimiter, getConfig } from "./utils";
 
 class Line {
   text: string;
@@ -12,18 +12,17 @@ class Line {
   format(largest_length: number, delimiter: string) {
     const textSplit = this.text.split(delimiter);
     if (textSplit.length === 1) {
-      console.log(`No delimiter found in ${this.text}. Skipping`);
+      // console.log(`No delimiter found in ${this.text}. Skipping`);
       return this.text;
     }
     if (textSplit[0].trim() === "") {
-      console.log(`No text before ${delimiter}. Skipping ${this.text}`);
+      // console.log(`No text before ${delimiter}. Skipping ${this.text}`);
       return this.text;
     }
-    const spaces = " ".repeat(
-      largest_length - this.text.split(delimiter)[0].length
-    );
-    console.log(`Adding ${spaces} to ${this.text}`);
-    return textSplit[0] + spaces + delimiter + textSplit[1];
+    const startText = textSplit[0].trimEnd();
+    const spaces = " ".repeat(largest_length - startText.length);
+    // console.log(`Adding ${spaces} to ${this.text}`);
+    return startText + spaces + delimiter + textSplit[1];
   }
 
   updateEdit(
@@ -40,7 +39,10 @@ class Block {
   lines: Line[] = [];
 
   addLine(text: string, range: vscode.Range, delimiter: string) {
-    const length = text.split(delimiter)[0].length;
+    const extraSpaceLength = getConfig("spacesBeforeComment");
+    const preCommentText = text.split(delimiter)[0].trimEnd();
+    const length = preCommentText.length + extraSpaceLength;
+    console.log(`Adding ${length} spaces to ${text}`);
     if (length > this.largest_length) {
       this.largest_length = length;
     }

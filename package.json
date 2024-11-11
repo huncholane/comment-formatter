@@ -24,6 +24,19 @@
         "key": "alt+a alt+c",
         "when": "editorTextFocus"
       }
+    ],
+    "configuration": [
+      {
+        "type": "object",
+        "title": "Comment Aligner Configuration",
+        "properties": {
+          "comment-aligner.spacesBeforeComment": {
+            "type": "number",
+            "default": 1,
+            "description": "Number of spaces before the comment"
+          }
+        }
+      }
     ]
   },
   "scripts": {
